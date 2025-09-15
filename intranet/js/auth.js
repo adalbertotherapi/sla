@@ -4,38 +4,30 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-document.getElementById("signupForm")?.addEventListener("submit", async (e) => {
+// --- LOGIN ---
+document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const nome = document.getElementById("nome").value;
-  const telefone = document.getElementById("telefone").value;
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-  // 1 - Criar usuário no Supabase Auth
-  const { data, error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
   if (error) {
-    document.getElementById("signupError").textContent = error.message;
-    return;
+    document.getElementById("loginError").textContent = error.message;
+  } else {
+    // login deu certo → redireciona
+    window.location.href = "dashboard.html";
   }
-
-  const user = data?.user;
-
-  // 2 - Criar perfil na tabela "perfis"
-  if (user) {
-    const { error: insertError } = await supabase.from("perfis").insert([
-      { id: user.id, nome, telefone }
-    ]);
-
-    if (insertError) {
-      console.error("Erro ao criar perfil:", insertError.message);
-    }
-  }
-
-  alert("Cadastro realizado! Verifique seu e-mail para confirmar.");
-  window.location.href = "index.html";
 });
+
+// --- LOGOUT (pode ser chamado no dashboard) ---
+async function logout() {
+  const { error } = await supabase.auth.signOut();
+  if (!error) {
+    window.location.href = "index.html";
+  }
+}
