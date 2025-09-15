@@ -6,24 +6,34 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 document.getElementById("signupForm")?.addEventListener("submit", async (e) => {
   e.preventDefault();
+
   const nome = document.getElementById("nome").value;
   const telefone = document.getElementById("telefone").value;
   const email = document.getElementById("signupEmail").value;
   const password = document.getElementById("signupPassword").value;
 
-  // Cria usuário no Supabase Auth
-  const { data, error } = await supabase.auth.signUp({ email, password });
+  // 1 - Criar usuário no Supabase Auth
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
 
   if (error) {
     document.getElementById("signupError").textContent = error.message;
     return;
   }
 
-  const user = data.user;
+  const user = data?.user;
 
-  // Insere no perfil
+  // 2 - Criar perfil na tabela "perfis"
   if (user) {
-    await supabase.from("perfis").insert([{ id: user.id, nome, telefone }]);
+    const { error: insertError } = await supabase.from("perfis").insert([
+      { id: user.id, nome, telefone }
+    ]);
+
+    if (insertError) {
+      console.error("Erro ao criar perfil:", insertError.message);
+    }
   }
 
   alert("Cadastro realizado! Verifique seu e-mail para confirmar.");
