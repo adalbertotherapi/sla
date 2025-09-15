@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Perfil - Intranet</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Meu Perfil</h1>
+    <button onclick="logout()">Sair</button>
+  </header>
+
+  <main>
+    <form id="perfilForm">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" required>
+
+      <label for="telefone">Telefone</label>
+      <input type="text" id="telefone">
+
+      <button type="submit">Salvar Alterações</button>
+    </form>
+
+    <p id="perfilMsg"></p>
+  </main>
+
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
+  <script src="js/perfil.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Intranet</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="E-mail" required>
+      <input type="password" id="password" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+    <p id="loginError" class="error"></p>
+
+    <p>Não tem conta? <a href="signup.html">Cadastrar-se</a></p>
+  </div>
+
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel - Intranet</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+        <h1>Intranet - Serviços</h1>
+        <nav>
+            <button onclick="irPerfil()">Meu Perfil</button>
+            <button onclick="logout()">Sair</button>
+        </nav>
+    </header>
+
+
+  <main>
+    <section>
+      <h2>Chamados em aberto</h2>
+      <ul id="listaChamados"></ul>
+    </section>
+
+    <section>
+      <h2>Abrir novo chamado</h2>
+      <form id="novoChamadoForm">
+        <input type="text" id="tituloChamado" placeholder="Título" required>
+        <textarea id="descChamado" placeholder="Descrição" required></textarea>
+        <button type="submit">Abrir Chamado</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="js/chamados.js"></script>
+</body>
+</html>
